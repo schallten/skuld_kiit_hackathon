@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigger.dev - Background Jobs & AI Infrastructure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">Trigger.dev</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#docs">Docs</a></li>
+            </ul>
+            <a href="#" class="cta-button">Start Free Trial</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-container">
+                <h1>Background Jobs & AI Infrastructure</h1>
+                <p>Write workflows in normal async code and we'll handle the rest, from queues to elastic scaling. No timeouts, retries, observability, and zero infrastructure to manage.</p>
+                
+                <div class="hero-buttons">
+                    <a href="#" class="primary-btn">Start Building Free</a>
+                    <a href="#" class="secondary-btn">View Live Demo</a>
+                </div>
+
+                <div class="metrics-bar">
+                    <div class="metric-item">
+                        <span class="metric-number">12k+</span>
+                        <span class="metric-label">GitHub Stars</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">500+</span>
+                        <span class="metric-label">Companies</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">10M+</span>
+                        <span class="metric-label">Jobs Processed</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">99.9%</span>
+                        <span class="metric-label">Uptime</span>
+                    </div>
+                </div>
+
+                <div class="code-demo">
+                    <pre><code>// Generate content using OpenAI with automatic retries
+export const generateContent = task({
+  id: "generate-content",
+  retry: {
+    maxAttempts: 3,
+    exponentialBackoff: true,
+  },
+  queue: { concurrency: 10 },
+  run: async ({ theme, description, userId }) => {
+    // Generate text content
+    const textResult = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: generateTextPrompt(theme, description),
+      stream: true, // Stream responses to users
+    });
+
+    // Generate accompanying image
+    const imageResult = await openai.images.generate({
+      model: "dall-e-3",
+      prompt: generateImagePrompt(theme, description),
+      quality: "hd",
+    });
+
+    // Send real-time updates to frontend
+    await io.emit(`content-${userId}`, {
+      text: textResult.choices[0].message.content,
+      image: imageResult.data[0].url,
+      status: "completed"
+    });
+
+    return { success: true, contentId: generateId() };
+  },
+});</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="features-container">
+                <h2>Build Invincible AI Apps</h2>
+                <div class="features-grid">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Intelligent Auto-Scaling</h3>
+                        <p>Automatically scale from zero to thousands of concurrent tasks based on demand. Pay only for compute time used with elastic infrastructure that adapts to your needs.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🔄</div>
+                        <h3>Smart Retry Logic</h3>
+                        <p>Built-in exponential backoff, jitter, and circuit breaker patterns ensure maximum reliability. Configure custom retry strategies for different failure scenarios.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Multi-Model Routing</h3>
+                        <p>Intelligently route tasks to the best AI model based on content analysis, cost optimization, and performance requirements with automatic fallback strategies.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">📡</div>
+                        <h3>Live Task Streaming</h3>
+                        <p>Stream AI responses directly to your frontend in real-time. Show progress indicators, partial results, and live status updates to keep users engaged.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="use-cases" id="use-cases">
+            <div class="features-container">
+                <h2>Perfect for Every AI Use Case</h2>
+                <div class="use-cases-grid">
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">📄</span>
+                        <h4>Document Processing</h4>
+                        <p>OCR, text extraction, summarization, and analysis of PDFs, images, and documents at scale</p>
+                    </div>
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">🎥</span>
+                        <h4>Video & Audio Processing</h4>
+                        <p>Transcription, translation, content moderation, and automated video editing workflows</p>
+                    </div>
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">💬</span>
+                        <h4>Conversational AI</h4>
+                        <p>Chatbots, virtual assistants, and customer support automation with context management</p>
+                    </div>
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">📊</span>
+                        <h4>Data Analysis</h4>
+                        <p>Automated reporting, insights generation, and business intelligence from large datasets</p>
+                    </div>
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">🎨</span>
+                        <h4>Content Creation</h4>
+                        <p>Blog posts, social media content, marketing materials, and creative asset generation</p>
+                    </div>
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">🔍</span>
+                        <h4>Search & Recommendations</h4>
+                        <p>Semantic search, personalized recommendations, and intelligent content discovery</p>
+                    </div>
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">🛡️</span>
+                        <h4>Content Moderation</h4>
+                        <p>Automated detection of harmful content, spam filtering, and compliance checking</p>
+                    </div>
+                    <div class="use-case fade-in">
+                        <span class="use-case-emoji">🧠</span>
+                        <h4>Knowledge Management</h4>
+                        <p>RAG systems, knowledge base creation, and intelligent document retrieval</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats">
+            <h2>Trusted by Developers Worldwide</h2>
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <span class="stat-number">12,000+</span>
+                    <div class="stat-label">GitHub Stars</div>
+                    <div class="stat-description">Growing open-source community</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">500+</span>
+                    <div class="stat-label">Companies</div>
+                    <div class="stat-description">From startups to enterprises</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">10M+</span>
+                    <div class="stat-label">Jobs Processed</div>
+                    <div class="stat-description">Reliable at scale</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">99.9%</span>
+                    <div class="stat-label">Uptime SLA</div>
+                    <div class="stat-description">Enterprise-grade reliability</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">< 100ms</span>
+                    <div class="stat-label">Task Latency</div>
+                    <div class="stat-description">Lightning-fast job scheduling</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <span class="stat-number">24/7</span>
+                    <div class="stat-label">Support</div>
+                    <div class="stat-description">Always here to help</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>Loved by Developers</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Trigger.dev has completely transformed our video pipelines. We can now process thousands of videos simultaneously using FFmpeg, and our video ad generation time has dropped to under 5 minutes through parallel processing."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">CT</div>
+                        <div class="author-info">
+                            <h4>Caleb Tan</h4>
+                            <p>CTO, Icon</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"We're using Trigger for our billing, background jobs and deployment pipeline without worrying about operations or infrastructure. It just works, and the developer experience is incredible."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AT</div>
+                        <div class="author-info">
+                            <h4>Andreas Thomas</h4>
+                            <p>Co-founder, Unkey</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"With Trigger.dev, we've summarized over a million student interactions in just a couple of weeks. We're incredibly thankful for tools that are empowering us to bring AI-driven solutions to educators at scale."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">BD</div>
+                        <div class="author-info">
+                            <h4>Ben Duggan</h4>
+                            <p>Engineering Lead, MagicSchool AI</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"Trigger.dev is one of those tools that you set up once (takes like 30 minutes) and then never have to worry about again. We use it heavily at Magic Patterns and wish we used it earlier."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AD</div>
+                        <div class="author-info">
+                            <h4>Alex Danilowicz</h4>
+                            <p>Founder, Magic Patterns</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"The reliability of Trigger.dev's job scheduling has been essential as we've scaled our evidence collection automation and built our open source community of 600+ compliance professionals."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LC</div>
+                        <div class="author-info">
+                            <h4>Lewis Carhart</h4>
+                            <p>CEO, Comp AI</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"Trigger is a central part of our architecture. It's allowed us to build a resilient system to orchestrate data across multiple systems. We love its observability, replayability, and how easily it integrates."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AA</div>
+                        <div class="author-info">
+                            <h4>Agree Ahmed</h4>
+                            <p>Lead Engineer, NUMI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-preview" id="pricing">
+            <h2>Simple, Transparent Pricing</h2>
+            <p>Start free, scale as you grow. No hidden fees, no surprises.</p>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="plan-name">Hobby</div>
+                    <div class="plan-price">Free <span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>1,000 task runs/month</li>
+                        <li>Community support</li>
+                        <li>Basic monitoring</li>
+                        <li>3 concurrent tasks</li>
+                        <li>7-day log retention</li>
+                    </ul>
+                    <a href="#" class="secondary-btn">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="plan-name">Pro</div>
+                    <div class="plan-price">$29 <span>/month</span></div>
+                    <ul class="plan-features">
+                        <li>50,000 task runs/month</li>
+                        <li>Priority support</li>
+                        <li>Advanced monitoring</li>
+                        <li>100 concurrent tasks</li>
+                        <li>30-day log retention</li>
+                        <li>Custom integrations</li>
+                    </ul>
+                    <a href="#" class="primary-btn">Start Free Trial</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="plan-name">Enterprise</div>
+                    <div class="plan-price">Custom</div>
+                    <ul class="plan-features">
+                        <li>Unlimited task runs</li>
+                        <li>Dedicated support</li>
+                        <li>Custom monitoring</li>
+                        <li>Unlimited concurrency</li>
+                        <li>Custom retention</li>
+                        <li>SLA guarantees</li>
+                        <li>On-premise deployment</li>
+                    </ul>
+                    <a href="#" class="secondary-btn">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Status Page</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Developers</h3>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Quick Start</a></li>
+                        <li><a href="#">Examples</a></li>
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">Contributing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Stack Overflow</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 API Hero Inc. Built with ❤️ for developers worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
